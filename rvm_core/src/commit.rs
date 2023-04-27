@@ -21,7 +21,7 @@ impl Commit {
                 res.push(rng::Rng<char>)
             }
             return String::from(res);
-        }
+        };
         Commit {
             id: gen_id(6),
             parent: None,
