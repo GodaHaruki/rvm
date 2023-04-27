@@ -9,6 +9,21 @@ pub enum Path {
 }
 
 impl Path {
+  pub fn new(path: String) -> Self {
+    let mut extension = Vec::new()
+    {
+      let mut b = false;
+      for s in path{
+        if s == "." {
+          b = true;
+        }
+        if b {
+          extension.push(s);
+        }
+      }
+    }
+  }
+
   pub fn open(&self) -> std::io::Result<File>{
     match self {
       Self::Blob(path) => File::open(path),

@@ -8,3 +8,13 @@ pub struct Tree {
     pub name: String,
     pub contents: Vec<Content>,
 }
+
+impl Tree {
+    pub fn new(name: String, contents: Vec<Content>) -> Self{
+        Self{
+            hash: Hash::new(name + format!("{#?}", Vec<Content>)),
+            name,
+            contents,
+        }
+    }
+}
