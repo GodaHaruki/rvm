@@ -1,6 +1,6 @@
 use crate::tree::Tree;
 use crate::path::Path;
-use crate::hash::Hash;
+// use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
 use rand::*;
 
@@ -26,7 +26,7 @@ impl Commit {
         Self {
             id: gen_id(6),
             parent: None,
-            contents: Tree::new("top".to_string(), Vec::new())
+            contents: contents,
         }
     }
 }

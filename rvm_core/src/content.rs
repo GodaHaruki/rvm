@@ -13,8 +13,8 @@ impl Content {
     pub fn get_hash(&self) -> Hash {
         use self::Content::*;
         match self {
-            Tree(T) => T.hash.clone(),
-            Blob(B) => B.hash.clone(),
+            Tree(t) => t.hash.clone(),
+            Blob(b) => b.hash.clone(),
         }
     }
 }

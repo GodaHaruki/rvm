@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Hash(String);
 
 impl Hash {
-    pub fn new(input: &String) -> Self{
+    pub fn new(_input: &String) -> Self{
         // let mut sha256 = Sha256::new();
         // sha256.input_str(input);
 
