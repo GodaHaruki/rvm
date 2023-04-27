@@ -1,5 +1,7 @@
 use crypto::sha2::Sha256;
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Hash(String);
 
 impl Hash {
