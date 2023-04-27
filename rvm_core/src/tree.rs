@@ -12,7 +12,7 @@ pub struct Tree {
 impl Tree {
     pub fn new(name: String, contents: Vec<Content>) -> Self{
         Self{
-            hash: Hash::new(name + format!("{#?}", Vec<Content>)),
+            hash: Hash::new(&(name + format!("{#?}", Vec<Content>))),
             name,
             contents,
         }

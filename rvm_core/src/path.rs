@@ -13,7 +13,7 @@ impl Path {
     let mut extension = Vec::new()
     {
       let mut b = false;
-      for s in path{
+      for s in path.chars(){
         if s == "." {
           b = true;
         }
@@ -22,6 +22,7 @@ impl Path {
         }
       }
     }
+    unimplemented!()
   }
 
   pub fn open(&self) -> std::io::Result<File>{
