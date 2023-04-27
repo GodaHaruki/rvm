@@ -29,10 +29,11 @@ impl Repository {
     pub fn add_branch(&mut self, branch: Branch) -> Result<(), Box<dyn std::error::Error>>{
         {
             for b in &self.branches {
-                if Branch::is_same_name(b, branch){ return SameNameBranchExistError;}
+                if Branch::is_same_name(b, branch){ return Err(SameNameBranchExistError);}
             }
         }
 
         self.branches.push(branch);
+        unimplemented!()
     }
 }
