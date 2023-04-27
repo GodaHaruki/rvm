@@ -14,7 +14,7 @@ impl Path {
     {
       let mut b = false;
       for s in path.chars(){
-        if s == "." {
+        if s == '.'{
           b = true;
         }
         if b {
