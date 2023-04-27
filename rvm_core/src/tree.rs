@@ -1,6 +1,6 @@
 use crate::content::Content;
 use serde::{Deserialize, Serialize};
-use crate::types::Hash;
+use crate::hash::Hash;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Tree {
