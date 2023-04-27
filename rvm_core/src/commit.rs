@@ -2,7 +2,7 @@ use crate::tree::Tree;
 use crate::path::Path;
 use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
-use rng::Rng;
+use rand::*;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Commit {
@@ -15,18 +15,18 @@ pub struct Commit {
 impl Commit {
     pub fn new(contents: Tree) -> Self {
         let mut rng = rand::thread_rng(); 
-        let gen_id = |digits| -> String {
-            let mut res = Vec::new()
+        let mut gen_id = |digits| -> String {
+            let mut res = String::new();
             for _ in 0..digits{
-                res.push(rng::Rng<char>)
+                res.push(rng.gen());
             }
-            return String::from(res);
+            let res = res;
+            return res;
         };
-        Commit {
+        Self {
             id: gen_id(6),
             parent: None,
             contents: Tree::new("top".to_string(), Vec::new())
         }
-        unimplemented!()
     }
 }

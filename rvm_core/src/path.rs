@@ -10,7 +10,7 @@ pub enum Path {
 
 impl Path {
   pub fn new(path: String) -> Self {
-    let mut extension = Vec::new()
+    let mut extension = Vec::new();
     {
       let mut b = false;
       for s in path.chars(){
