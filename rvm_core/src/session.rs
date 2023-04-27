@@ -5,7 +5,7 @@ struct Session {
     ranch>
 }
 
-impl Session{}
+impl Session{
     pub fn new() -> Self{
         Self {
             branch
