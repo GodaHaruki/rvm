@@ -2,6 +2,7 @@ use crate::blob::Blob;
 use crate::tree::Tree;
 use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
+use crate::path::Path;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Content {
@@ -11,11 +12,10 @@ pub enum Content {
 
 impl Content {
     pub fn from_path(path: Path) -> Self {
-        use crate::path::Path::*;
         match path {
-            Tree(p) => Content::Tree(deserialize(p)),
-            Blob(p) => Content::Blob(deserialize(p)),
-            _ => panic!("inappropirate file path")
+            Path::Tree(_) => Self::Tree(path.read_as().unwrap()),
+            Path::Blob(_) => Self::Blob(path.read_as().unwrap()),
+            _ => panic!()
         }
     }
 
