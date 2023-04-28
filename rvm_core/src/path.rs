@@ -1,35 +1,39 @@
 use std::fs::*;
 use serde::{Deserialize, Serialize};
+use std::path::Path as stdPath;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Path {
-  Blob(String),
-  Tree(String),
-  Commit(String),
+  Repository(stdPath)
+  Blob(stdPath),
+  Tree(stdPath),
+  Commit(stdPath),
 }
 
 impl Path {
-  pub fn new(path: String) -> Self {
-    let mut extension = Vec::new();
-    {
-      let mut b = false;
-      for s in path.chars(){
-        if s == '.'{
-          b = true;
-        }
-        if b {
-          extension.push(s);
-        }
-      }
-    }
-    unimplemented!()
+  pub fn new_blob(path: String) -> Self {
+    Blob(stdPath::new(path))
+  }
+
+  pub fn new_tree(path: String) -> Self {
+    Tree(stdPath::new(path))
+  }
+
+  pub fn new_commit(path: String) -> Self {
+    Commit(stdPath::new(path))
+  }
+
+  pub fn new_repository(path: String) -> Self {
+    Repository(stdPath::new(path))
   }
 
   pub fn open(&self) -> std::io::Result<File>{
+    use self::Path::*;
     match self {
-      Self::Blob(path) => File::open(path),
-      Self::Tree(path) => File::open(path),
-      Self::Commit(path) => File::open(path),
+      Repository(path) => File::open(path),
+      Blob(path) => File::open(path),
+      Tree(path) => File::open(path),
+      Commit(path) => File::open(path),
     }
   }
 }
