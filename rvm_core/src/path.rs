@@ -36,4 +36,12 @@ impl Path {
       Commit(path) => File::open(path),
     }
   }
+
+  pub fn save<T: Deserialize>(&self, T:) -> Result<(), todo!()>{
+    todo!()
+  }
+
+  pub fn read_as<T: Serialize>(&self) -> T {
+    todo!()
+  }
 }
