@@ -13,7 +13,7 @@ impl std::fmt::Display for Error {
         match self {
             MergeError => write!(f, "MergeError"),
             PushError => write!(f, "PushError"),
-            BranchNotFound => write!(f, "BranchNotFound")
+            BranchNotFound => write!(f, "BranchNotFound"),
             _ => todo!()
         }
     }
