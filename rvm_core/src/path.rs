@@ -1,31 +1,41 @@
-use std::fs::*;
-use std::io::Write;
+use std::ffi::OsStr;
+use std::fs::{self, File};
 use serde::{Deserialize, Serialize};
-use std::path::Path as stdPath;
+use std::path::PathBuf as stdPath;
+use std::io::{Write};
 use toml;
 
+
 #[derive(Debug, Serialize, Deserialize)]
-pub enum Path<'a> {
-  Repository(Box<&'a stdPath>),
-  Blob(Box<&'a stdPath>),
-  Tree(Box<&'a stdPath>),
-  Commit(Box<&'a stdPath>),
+pub enum Path{
+  Repository(Box<stdPath>),
+  Blob(Box<stdPath>),
+  Tree(Box<stdPath>),
+  Commit(Box<stdPath>),
 }
 
-impl<'a> Path<'a> {
-  pub fn new_blob(path: &stdPath) -> Self {
+impl Path {
+  pub fn new_blob<S: AsRef<std::path::Path>>(path: &S) -> Self {
+    let mut path = stdPath::new();
+    path.push(path);
     Path::Blob(Box::new(path))
   }
 
-  pub fn new_tree(path: &stdPath) -> Self {
+  pub fn new_tree<S: AsRef<OsStr> + ?Sized>(path: &S) -> Self {
+    let mut path = stdPath::new();
+    path.push(path);
     Path::Tree(Box::new(path))
   }
 
-  pub fn new_commit(path: &stdPath) -> Self {
+  pub fn new_commit<S: AsRef<OsStr> + ?Sized>(path: &S) -> Self {
+    let mut path = stdPath::new();
+    path.push(path);
     Path::Commit(Box::new(path))
   }
 
-  pub fn new_repository(path: &stdPath) -> Self {
+  pub fn new_repository<S: AsRef<OsStr> + ?Sized>(path: &S) -> Self {
+    let mut path = stdPath::new();
+    path.push(path);
     Path::Repository(Box::new(path))
   }
 
@@ -34,13 +44,13 @@ impl<'a> Path<'a> {
   }
 
   #[inline]
-  pub fn get_path(&self) -> &stdPath{
+  pub fn get_path(&self) -> &stdPath {
     use self::Path::*;
     match self {
-      Repository(path) => path,
-      Blob(path) => path,
-      Tree(path) => path,
-      Commit(path) => path,
+      Repository(path) => path.as_ref(),
+      Blob(path) => path.as_ref(),
+      Tree(path) => path.as_ref(),
+      Commit(path) => path.as_ref(),
     }
   }
 
@@ -50,18 +60,21 @@ impl<'a> Path<'a> {
   }
 
   pub fn save<T: Serialize>(&self, c: T) -> Result<(), Box<dyn std::error::Error>>{
-    if let Ok(mut f) = self.open(){
-      write!(f, "{}", toml::to_string(&c)?);
+    if let Ok(mut f) = self.open() {
+      write!(f, "{}", toml::to_string(&c)?)?;
+      f.flush()?;
       Ok(())
     } else {
-      let mut file = self.create()?;
-      write!(file, "{}", toml::to_string(&c)?)?;
-      file.flush()?;
+      let mut f = self.create()?;
+      write!(f, "{}", toml::to_string(&c)?)?;
+      f.flush()?;
       Ok(())
     }
   }
 
-  pub fn read_as<T: Deserialize<'a>>(&self) -> std::io::Result<T> {
-    todo!()
+  pub fn read_as<'a, T: Deserialize<'a>>(&self) -> Result<T, Box<dyn std::error::Error>>{
+    let s = fs::read_to_string(self.get_path())?;
+    let res: T = toml::from_str(&s)?;
+    Ok(res)
   }
 }
