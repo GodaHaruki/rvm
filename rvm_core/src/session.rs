@@ -16,7 +16,7 @@ impl<'a> Session<'a>{
         }
     }
 
-    pub fn from_current_dir() -> std::io::Result<Self>{
+    pub fn from_current_dir() -> Result<Self, Box<dyn std::error::Error>>{
         let path = std::env::current_dir().unwrap();
         Ok(
             Self{
