@@ -4,27 +4,27 @@ use std::path::Path as stdPath;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Path {
-  Repository(stdPath)
-  Blob(stdPath),
-  Tree(stdPath),
-  Commit(stdPath),
+  Repository(Box<stdPath>)
+  Blob(Box<stdPath>),
+  Tree(Box<stdPath>),
+  Commit(Box<stdPath>),
 }
 
 impl Path {
   pub fn new_blob(path: String) -> Self {
-    Blob(stdPath::new(path))
+    Blob(Box::new(stdPath::new(path)))
   }
 
   pub fn new_tree(path: String) -> Self {
-    Tree(stdPath::new(path))
+    Tree(Box::new(stdPath::new(path)))
   }
 
   pub fn new_commit(path: String) -> Self {
-    Commit(stdPath::new(path))
+    Commit(Box::new(stdPath::new(path)))
   }
 
   pub fn new_repository(path: String) -> Self {
-    Repository(stdPath::new(path))
+    Repository(Box::new(stdPath::new(path)))
   }
 
   pub fn open(&self) -> std::io::Result<File>{
