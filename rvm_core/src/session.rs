@@ -1,14 +1,14 @@
 use crate::repository::Repository;
 use crate::branch::Branch;
 use crate::error::Error;
-use crate::path::Path;
+// use crate::path::Path; 
 
-struct Session<'a> {
+struct Session {
     repository: Option<Repository>,
-    target: Option<&'a Branch>
+    target: Option<String>
 }
 
-impl<'a> Session<'a>{
+impl Session{
     pub fn new() -> Self{
         Self {
             repository: None,
@@ -20,7 +20,7 @@ impl<'a> Session<'a>{
         let path = std::env::current_dir().unwrap();
         Ok(
             Self{
-                repository: Path::new_repository(&path).read_as()?,
+                repository: todo!(), // Path::new_repository(&path)
                 target: None,
         })
     }
@@ -34,12 +34,12 @@ impl<'a> Session<'a>{
     }
     
     pub fn checkout(&mut self, repo_name: String) -> Result<(), Box<dyn std::error::Error>>{ // git checkout
-        if let Some(repo) = self.repository {
+        if let Some(repo) = &self.repository {
             let new_target: Vec<&Branch> = repo.branches.iter().filter(|r| r.name == repo_name).collect();
             if new_target.len() == 0{
                 return Err(Box::new(Error::BranchNotFound));
             } else {
-                self.target = Some(new_target[0]);
+                self.target = Some(new_target[0].name.clone());
                 return Ok(());
             }
         } else {

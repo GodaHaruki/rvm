@@ -8,3 +8,4 @@ pub mod hash;
 pub mod path;
 pub mod session;
 pub mod error;
+pub mod macro_read;

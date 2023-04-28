@@ -13,8 +13,8 @@ pub enum Content {
 impl Content {
     pub fn from_path(path: Path) -> Self {
         match path {
-            Path::Tree(_) => Self::Tree(path.read_as().unwrap()),
-            Path::Blob(_) => Self::Blob(path.read_as().unwrap()),
+            Path::Tree(_) => Self::Tree(todo!()),
+            Path::Blob(_) => Self::Blob(todo!()),
             _ => panic!()
         }
     }
