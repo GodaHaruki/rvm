@@ -4,7 +4,7 @@ use std::path::Path as stdPath;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Path {
-  Repository(Box<stdPath>)
+  Repository(Box<stdPath>),
   Blob(Box<stdPath>),
   Tree(Box<stdPath>),
   Commit(Box<stdPath>),
@@ -37,7 +37,7 @@ impl Path {
     }
   }
 
-  pub fn save<T: Deserialize>(&self, T:) -> Result<(), todo!()>{
+  pub fn save<'a, T: Deserialize<'a>>(&self, c: T) -> Result<(), ()>{
     todo!()
   }
 
