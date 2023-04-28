@@ -3,37 +3,47 @@ use crate::branch::Branch;
 use crate::error::Error;
 use crate::path::Path;
 
-struct Session {
+struct Session<'a> {
     repository: Option<Repository>,
-    target: Option<&Branch>
+    target: Option<&'a Branch>
 }
 
-impl Session{
+impl<'a> Session<'a>{
     pub fn new() -> Self{
         Self {
-            repository: Repository::new(),
+            repository: None,
             target: None,
         }
     }
 
-    pub fn from_current_dir() -> Self{
-        let path = std::env::current_dir()?;
+    pub fn from_current_dir() -> std::io::Result<Self>{
+        let path = std::env::current_dir().unwrap();
+        Ok(
+            Self{
+                repository: Path::new_repository(&path).read_as()?,
+                target: None,
+        })
     }
 
     pub fn init() -> Self {
-        let path = env::current_dir()?;
+        let path = std::env::current_dir().unwrap();
         Self {
-            repository: deselizrize(Path::new_repository(path.to_string())),
-            target: todo!()
+            repository: Some(Repository::new("main".to_string())),
+            target: None,
         }
     }
     
-    pub fn checkout(&mut self, repo_name: String) -> Result<(), Box<dyn std::error::error>{ // git checkout
-        let new_target = self.repository.branches.filter(|r| -> bool r.name == repo_name).collect();
-        if new_target.len() == 0 {
-            return Err(Error::BranchNotFound)
+    pub fn checkout(&mut self, repo_name: String) -> Result<(), Box<dyn std::error::Error>>{ // git checkout
+        if let Some(repo) = self.repository {
+            let new_target: Vec<&Branch> = repo.branches.iter().filter(|r| r.name == repo_name).collect();
+            if new_target.len() == 0{
+                return Err(Box::new(Error::BranchNotFound));
+            } else {
+                self.target = Some(new_target[0]);
+                return Ok(());
+            }
+        } else {
+            return Err(Box::new(Error::BranchNotFound))
         }
-        target = new_target[0];
-        Ok()
     }
 }
