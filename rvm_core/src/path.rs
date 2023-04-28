@@ -1,9 +1,8 @@
-use std::ffi::OsStr;
-use std::fs::{self, File};
+use std::fs::File;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf as stdPath;
-use std::io::{Write};
-use toml;
+use std::io::Write;
+use serde_json;
 
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -61,12 +60,12 @@ impl Path {
 
   pub fn save<T: Serialize>(&self, c: T) -> Result<(), Box<dyn std::error::Error>>{
     if let Ok(mut f) = self.open() {
-      write!(f, "{}", toml::to_string(&c)?)?;
+      write!(f, "{}", serde_json::to_string(&c)?)?;
       f.flush()?;
       Ok(())
     } else {
       let mut f = self.create()?;
-      write!(f, "{}", toml::to_string(&c)?)?;
+      write!(f, "{}", serde_json::to_string(&c)?)?;
       f.flush()?;
       Ok(())
     }
