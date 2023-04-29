@@ -1,7 +1,5 @@
-use core::panic;
-
 use serde::{Deserialize, Serialize};
-use serde_json;
+
 
 #[macro_export]
 macro_rules! read_as {
@@ -9,6 +7,10 @@ macro_rules! read_as {
     serde_json::from_str::<$t>($s);
   }
 }
+
+
+#[test]
+use serde_json;
 
 #[test]
 #[derive(PartialEq, Debug, Serialize, Deserialize)]
