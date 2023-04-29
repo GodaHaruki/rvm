@@ -18,10 +18,10 @@ impl Session{
     }
 
     pub fn from_current_dir() -> Result<Self, Box<dyn std::error::Error>>{
-        let p = std::env::current_dir().unwrap();
+        let p = std::env::current_dir().unwrap().join("/.rvm/main.rvm");
         Ok(
             Self{
-                repository: Some(read_as!(Repository, todo!())?), // Path::new_repository(&path)
+                repository: Some(read_as!(Repository, p.to_str().unwrap())?), // Path::new_repository(&path)
                 target: None,
         })
     }

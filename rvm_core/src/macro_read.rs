@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[macro_export]
 macro_rules! read_as {
   ($t:ty, $s:expr) => { 
-    serde_json::from_str::<$t>($s);
+    serde_json::from_str::<$t>($s)
   }
 }
 
