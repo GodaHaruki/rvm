@@ -53,6 +53,10 @@ impl Path {
     }
   }
 
+  pub fn get_path_as_str(&self) -> Option<&str> {
+    self.get_path().to_str()
+  }
+
   pub fn create(&self) -> std::io::Result<File> {
     let mut file = File::create(self.get_path());
     return file;

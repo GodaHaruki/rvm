@@ -1,4 +1,4 @@
-use crate::blob::Blob;
+use crate::{blob::Blob, read_as};
 use crate::tree::Tree;
 use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
@@ -13,8 +13,8 @@ pub enum Content {
 impl Content {
     pub fn from_path(path: Path) -> Self {
         match path {
-            Path::Tree(_) => Self::Tree(todo!()),
-            Path::Blob(_) => Self::Blob(todo!()),
+            Path::Tree(_) => Self::Tree(read_as!(Tree, path.get_path_as_str().unwrap()).unwrap()),
+            Path::Blob(_) => Self::Blob(read_as!(Blob, path.get_path_as_str().unwrap()).unwrap()),
             _ => panic!()
         }
     }
