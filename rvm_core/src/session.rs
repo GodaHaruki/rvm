@@ -1,11 +1,12 @@
+use crate::{read_as, path};
 use crate::repository::Repository;
 use crate::branch::Branch;
 use crate::error::Error;
 // use crate::path::Path; 
 
-struct Session {
-    repository: Option<Repository>,
-    target: Option<String>
+pub struct Session {
+    pub repository: Option<Repository>,
+    pub target: Option<String>
 }
 
 impl Session{
@@ -17,10 +18,10 @@ impl Session{
     }
 
     pub fn from_current_dir() -> Result<Self, Box<dyn std::error::Error>>{
-        let path = std::env::current_dir().unwrap();
+        let p = std::env::current_dir().unwrap();
         Ok(
             Self{
-                repository: todo!(), // Path::new_repository(&path)
+                repository: Some(read_as!(Repository, todo!())?), // Path::new_repository(&path)
                 target: None,
         })
     }
