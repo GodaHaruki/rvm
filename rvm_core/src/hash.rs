@@ -1,8 +1,13 @@
 use crypto::sha2::Sha256;
 use serde::{Deserialize, Serialize};
 
+use crate::save::Save;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Hash(String);
+
+impl Save for Hash {}
+
 
 impl Hash {
     pub fn new(_input: &String) -> Self{

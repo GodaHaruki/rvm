@@ -3,6 +3,7 @@ use crate::tree::Tree;
 use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
 use crate::path::Path;
+use crate::save::Save;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Content {
@@ -27,3 +28,5 @@ impl Content {
         }
     }
 }
+
+impl Save for Content {}

@@ -4,6 +4,8 @@ use std::path::PathBuf as stdPath;
 use std::io::Write;
 use serde_json;
 
+use crate::save::Save;
+
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum Path{
@@ -62,17 +64,18 @@ impl Path {
     return file;
   }
 
-  pub fn save<T: Serialize>(&self, c: T) -> Result<(), Box<dyn std::error::Error>>{
+  pub fn save<T: Serialize>(&self, c: &T) -> Result<(), Box<dyn std::error::Error>>{
     if let Ok(mut f) = self.open() {
-      write!(f, "{}", serde_json::to_string(&c)?)?;
+      write!(f, "{}", serde_json::to_string(c)?)?;
       f.flush()?;
       Ok(())
     } else {
       let mut f = self.create()?;
-      write!(f, "{}", serde_json::to_string(&c)?)?;
+      write!(f, "{}", serde_json::to_string(c)?)?;
       f.flush()?;
       Ok(())
     }
   }
 }
 
+impl Save for Path {}

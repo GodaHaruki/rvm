@@ -1,4 +1,4 @@
-use crate::tree::Tree;
+use crate::{tree::Tree, save::Save};
 use crate::path::Path;
 // use crate::hash::Hash;
 use serde::{Deserialize, Serialize};
@@ -30,3 +30,5 @@ impl Commit {
         }
     }
 }
+
+impl Save for Commit {}

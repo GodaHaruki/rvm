@@ -1,4 +1,4 @@
-use crate::branch::Branch;
+use crate::{branch::Branch, save::Save};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -17,6 +17,8 @@ impl std::fmt::Display for SameNameBranchExistError{
         write!(f, "SameFileExistError")
     }
 }
+
+impl Save for Repository {}
 
 impl Repository {
     pub fn new(name: String) -> Self {

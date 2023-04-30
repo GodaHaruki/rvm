@@ -1,4 +1,4 @@
-use crate::commit::Commit;
+use crate::{commit::Commit, save::Save};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -23,3 +23,5 @@ impl Branch {
         unimplemented!()
     }
 }
+
+impl Save for Branch {}

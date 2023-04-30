@@ -1,4 +1,4 @@
-use crate::hash::Hash;
+use crate::{hash::Hash, save::Save};
 use crate::path::Path;
 use serde::{Deserialize, Serialize};
 
@@ -12,5 +12,7 @@ pub struct Blob {
 impl Blob {
     pub fn new(name: String, hash: Hash, path: Path) -> Self {
         Blob { name, hash, path }
-    }
+    } 
 }
+
+impl Save for Blob {}

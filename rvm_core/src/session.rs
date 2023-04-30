@@ -9,6 +9,9 @@ pub struct Session {
     pub target: Option<String>
 }
 
+impl Save for Session {}
+
+
 impl Session{
     pub fn new() -> Self{
         Self {

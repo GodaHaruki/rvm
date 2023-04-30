@@ -1,4 +1,4 @@
-use crate::content::Content;
+use crate::{content::Content, save::Save};
 use serde::{Deserialize, Serialize};
 use crate::hash::Hash;
 
@@ -8,6 +8,8 @@ pub struct Tree {
     pub name: String,
     pub contents: Vec<Content>,
 }
+
+impl Save for Tree {}
 
 impl Tree {
     pub fn gen_contents_hash(&self) -> String{
