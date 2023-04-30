@@ -28,5 +28,3 @@ impl Content {
         }
     }
 }
-
-impl Save for Content {}

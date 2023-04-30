@@ -23,5 +23,3 @@ impl Branch {
         unimplemented!()
     }
 }
-
-impl Save for Branch {}

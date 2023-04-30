@@ -2,14 +2,16 @@ use crate::{read_as, path};
 use crate::repository::Repository;
 use crate::branch::Branch;
 use crate::error::Error;
-// use crate::path::Path; 
+// use crate::path::Path;
+use serde::{Serialize, Deserialize};
+use crate::save::Save;
 
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Session {
     pub repository: Option<Repository>,
     pub target: Option<String>
 }
 
-impl Save for Session {}
 
 
 impl Session{

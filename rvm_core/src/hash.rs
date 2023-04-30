@@ -6,7 +6,6 @@ use crate::save::Save;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Hash(String);
 
-impl Save for Hash {}
 
 
 impl Hash {

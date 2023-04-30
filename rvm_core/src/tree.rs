@@ -9,8 +9,6 @@ pub struct Tree {
     pub contents: Vec<Content>,
 }
 
-impl Save for Tree {}
-
 impl Tree {
     pub fn gen_contents_hash(&self) -> String{
         let mut contents_hashes = String::new();

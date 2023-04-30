@@ -78,4 +78,3 @@ impl Path {
   }
 }
 
-impl Save for Path {}

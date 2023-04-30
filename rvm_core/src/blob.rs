@@ -15,4 +15,3 @@ impl Blob {
     } 
 }
 
-impl Save for Blob {}

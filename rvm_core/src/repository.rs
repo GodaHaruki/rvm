@@ -18,8 +18,6 @@ impl std::fmt::Display for SameNameBranchExistError{
     }
 }
 
-impl Save for Repository {}
-
 impl Repository {
     pub fn new(name: String) -> Self {
         Self {

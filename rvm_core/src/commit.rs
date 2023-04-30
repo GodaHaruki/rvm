@@ -30,5 +30,3 @@ impl Commit {
         }
     }
 }
-
-impl Save for Commit {}
